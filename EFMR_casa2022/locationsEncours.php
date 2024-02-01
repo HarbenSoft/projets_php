@@ -21,7 +21,7 @@
         $sql = $pdo->prepare('SELECT * FROM location l
                             INNER JOIN client c ON l.id_client = c.id_client
                             INNER JOIN immobilier i ON l.id_immobilier = i.id_immobilier
-                            WHERE l.id_client = ? AND date_fin_location > ?
+                            WHERE l.id_client = ? AND ? BETWEEN date_debut_location AND date_fin_location
                             ');
         $sql->execute([$id_client,$date_auj]);
         $locations = $sql->fetchAll(PDO::FETCH_ASSOC);
