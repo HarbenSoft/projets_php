@@ -19,5 +19,5 @@ location(*id_location, #id_immobilier, #id_client, date_debut_location, date_fin
 5/ créer une page de connexion client connexion.php permettant à un client de se connecter par email et password,
 après connexion l'utilisateur sera redirigé vers une page locationsEncours.php
     a. Conception et authentification. (6pts)
-    b. les informations nom et prénom sont affichées en haut de lapage locationsEncours.php.(4 pts)
+    b. les informations nom et prénom sont affichées en haut de la page locationsEncours.php.(4 pts)
 6/Dans la page locationsEncours.php, afficher toutes les locations en cours du client connecté. (6pts)
