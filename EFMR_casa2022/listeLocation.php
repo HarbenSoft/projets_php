@@ -11,25 +11,16 @@
 </head>
 <body>
     <?php
-        $condition ='';
-        $date1='';
-        $date2='';
         if(isset($_GET['rechercher'])){
             $date1 = $_GET['date1'];
             $date2 = $_GET['date2'];
-            $condition = "date_debut_location >= $date1 AND date_fin_location <= $date2";
-        }
-
-        $sql = $pdo->prepare('SELECT * FROM location loc
+            $sql = $pdo->prepare('SELECT * FROM location loc
                                 INNER JOIN immobilier im ON loc.id_immobilier = im.id_immobilier
                                 INNER JOIN client c ON loc.id_client = c.id_client
-                                WHERE ' .$condition);
-        $sql->execute();
-        //var_dump([$sql]);
-        //var_dump($sql->fetchAll(PDO::FETCH_ASSOC));
+                                WHERE date_debut_location >= ? AND date_fin_location <= ?');
+        $sql->execute([$date1,$date2]);
         $locations = $sql->fetchAll(PDO::FETCH_ASSOC);
-        //var_dump($locations);
-        
+        }
     ?>
     <pre>
         <div><h1>Rechercher les locations entre les dates : </h1> </div>
