@@ -7,7 +7,7 @@
 </head>
 <body>
     <div><a href="efmr_casa2022/index.php">* Projet 1 : EFMR casa 2021/2022</a></div><br>
-    <div><a href="efmr_casa2022/index.php">* Projet 2 : EFMR </a></div><br>
+    <div><a href="efmr_ifrane2022/index.php">* Projet 2 : EFMR ifrane 2022 </a></div><br>
 
 <?php
 //Commentaire sur une seule ligne, style C++

@@ -1,0 +1,30 @@
+Enoncé :->
+
+Une compagnie d'assurance de la place à décider de renouveler son système d'information 
+pour gérer le suivie des dossiers de ces clients en temps réel.
+
+l'équipe en charge du dossier d'analyse de cette application a construit 
+le modèle relationnel de données suivant :
+
+- Dossier(*numdossier, datedepot, montant_remboursement, date_traitement,
+        lien_malade, #matricule, #num_maladie, total_dossier)
+- Assure(*matricule, nom_ass, prenom_ass, date_naissance,
+        nb_enfant, situation_familiale, #num_entreprise,
+        total_remb, date_deces, mot_depasse)
+- Maladie(*num_maladie,designation_maladie)
+- Entreprise(*num_entreprise, nom_entreprise, adresse, telephone, nombre_employes, email)
+- Rubrique(*num_rubrique, nom_rubrique, #numdossier, montant_rubrique)
+
+1°) Créer la base de données sous Mysql et ajouter quelques lignes de test. (5pts).
+2°) Développer une page d'authentification de l'assuré : une fois ce dernier s'authentifie 
+        en rentrant son matricule et son mot de passe, il est redirigé vers une autres page
+        accueil contenant toutes les informations qui lui sont propres ainsi que son entreprise. (4pts)
+3°) On veut gérer la contrainte suivante : tout accés direct court-circulant la page d'authentification 
+        entrainera une redirection vers cell-ci. Cela est fait pour obliger l'utilisateur de se connecter
+        avant d'exploiter n'importe quelle page du site (4 pts).
+4°) prévoir un menu déroulant présent dans toutes les pages pour accéder aux fonctionnalités demandées 
+        ci-après. (3pts)
+5°/ Développer un formulaire pour ajouter un dossier. (6pts)
+        a. Ajouter les contôles de validation pour les champs de saisie.
+        b. le numéro du dossier doit être entier.
+        c. Tous les champs sont obligatoires.
