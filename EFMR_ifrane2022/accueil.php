@@ -1,6 +1,5 @@
 <?php
         require 'db_compagnie_ass.php';
-        session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +10,7 @@
     <title>Accueil</title>
 </head>
 <body>
-    
+
     <?php
 
         include_once "nav.php";
@@ -22,33 +21,33 @@
             <?php  affiche_assure();
 
         }else{
-            echo "Veuillez-vous s'authentifier avant de continuer !";
+            echo "Veuillez-vous s'authentifier avant de continuer ! ";
             echo "<a href='connexion.php'>Se connecter</a>";
         }
 
         if ($_SERVER['REQUEST_METHOD'] == "POST"){
             if(isset($_REQUEST['deconnecter'])){
                 if(isset($_SESSION["assure"])){
-                    unset($_SESSION["assure"]);    
+                    unset($_SESSION["assure"]);
                     session_destroy();
                 }
                 header('location: connexion.php');
             }
         }
     ?>
-    
+
 
     <?php
         function affiche_assure(){
             /*utilisation de query */
             require 'db_compagnie_ass.php';
             $matricule = $_SESSION['assure']['matricule'];
-            $assure=$pdo->query("SELECT * FROM assure A 
+            $assure=$pdo->query("SELECT * FROM assure A
                             INNER JOIN entreprise E ON A.num_entreprise = E.num_entreprise
                             WHERE A.matricule = $matricule")->fetch(PDO::FETCH_ASSOC);;
 
 
-            echo "<h2> L'assuré : </h2>";
+            echo "<h2> Les informations de l'assuré : </h2>";
             echo "<h2> Matricule : " . $assure['matricule'] . "</h2>";
             echo "<h2> Nom : " . $assure['nom_ass'] . "</h2>";
             echo "<h2> Prénom : " . $assure['prenom_ass'] . "</h2>";

@@ -1,3 +1,6 @@
+<?php
+        require 'db_compagnie_ass.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +11,20 @@
     <title>EVALUATION REGIONAL IFRANE 2022</title>
 </head>
 <body>
-    
+
     <?php
         include_once 'nav.php';
-        session_start();
         if(!isset($_SESSION['assure'])){
-            header("location: connexion.php");
+            echo "Veuillez-vous s'authentifier avant de continuer !  ";
+            echo "<a href='connexion.php'>Se connecter</a>";
         }
+
+        if($_SERVER['REQUEST_METHOD']=="GET"){
+            $num_dossier = htmlspecialchars($_GET['num_dos']);
+            $sql = $pdo->prepare('DELETE FROM dossier WHERE numdossier = ?');
+            $sql->execute([$num_dossier]);
+            header('location: miseajour_Dossier.php');
+    }
     ?>
 </body>
 </html>

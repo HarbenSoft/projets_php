@@ -1,6 +1,5 @@
 <?php
         require 'db_compagnie_ass.php';
-        session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +18,7 @@
             if(isset($_REQUEST['connecter'])){
                 $matricule = $_REQUEST['matricule'];
                 $password = $_REQUEST['password'];
-                $sql=$pdo->prepare('SELECT * FROM assure WHERE 
+                $sql=$pdo->prepare('SELECT * FROM assure WHERE
                         matricule = ? AND mot_depasse = ? ');
                 $sql->execute([$matricule,$password]);
                 if ($sql->rowCount()>=1){
@@ -41,6 +40,6 @@
     </form>
 
 
-    
+
 </body>
 </html>
