@@ -28,3 +28,8 @@ le modèle relationnel de données suivant :
         a. Ajouter les contôles de validation pour les champs de saisie.
         b. le numéro du dossier doit être entier.
         c. Tous les champs sont obligatoires.
+6°)
+
+        c. le bouton sélectionner permet d'afficher dans une nouvelle page web un tableau
+                HTML contenant la liste des rubriques (toutes les informations) qui compose
+                le dossier sélectionné. (6 pts)

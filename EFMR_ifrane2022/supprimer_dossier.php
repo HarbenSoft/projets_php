@@ -17,8 +17,13 @@
         if(!isset($_SESSION['assure'])){
             echo "Veuillez-vous s'authentifier avant de continuer !  ";
             echo "<a href='connexion.php'>Se connecter</a>";
-        }else {
-            echo "Page principale.";
+        }
+
+        if($_SERVER['REQUEST_METHOD']=="GET"){
+            $num_dossier = htmlspecialchars($_GET['num_dos']);
+            $sql = $pdo->prepare('DELETE FROM dossier WHERE numdossier = ?');
+            $sql->execute([$num_dossier]);
+            header('location: miseajour_Dossier.php');
     }
     ?>
 </body>

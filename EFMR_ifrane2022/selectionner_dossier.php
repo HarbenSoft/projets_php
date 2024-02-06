@@ -1,10 +1,3 @@
-<!--  tables  :
-Dossier(*numdossier, datedepot, montant_remboursement, date_traitement,
-        lien_malade, #matricule, #num_maladie, total_dossier)
-Maladie(*num_maladie,designation_maladie)
-
--->
-
 <?php
         require 'db_compagnie_ass.php';
 ?>
@@ -19,24 +12,32 @@ Maladie(*num_maladie,designation_maladie)
 </head>
 <body>
     <?php
+
     include_once "nav.php";
+
     if(!isset($_SESSION["assure"])){
         echo "Veuillez-vous s'authentifier avant de continuer ! ";
         echo "<a href='connexion.php'>Se connecter</a>";
     }else{
-        $assure_connecter = $_SESSION['assure']['matricule'];
-        $sql = $pdo->prepare('SELECT * FROM dossier D
-                                    INNER JOIN assure A ON D.matricule = A.matricule
-                                    WHERE D.matricule = ?');
-        $sql->execute([$assure_connecter]);
-        $dossiers  = $sql->fetchAll(PDO::FETCH_ASSOC);
-        //var_dump($dossiers);
+        if($_SERVER['REQUEST_METHOD']=="GET"){
+            $num_dossier = $_GET['num_dos'];
+            $sql_dossier = $pdo->prepare('SELECT * FROM dossier WHERE numdossier = ?');
+            $sql_dossier->execute([$num_dossier]);
+            if($sql_dossier->rowCount()>=1){
+                 $dossier= $sql_dossier->fetch(PDO::FETCH_ASSOC);
+
+
+
+            $sql_rubriques = $pdo->prepare('SELECT * FROM Rubrique R
+                                    INNER JOIN Dossier D ON R.numdossier = D.numdossier
+                                    WHERE D.numdossier = ?');
+            $sql_rubriques->execute([$num_dossier]);
+            $rubriques_dossier  = $sql_rubriques->fetchAll(PDO::FETCH_ASSOC);
     ?>
     <div
         class="table-responsive-md" >
         <table class="table table-striped-columns table-hover table-borderless table-primary align-middle">
             <thead class="table-light">
-                <caption> La liste des dossiers de : <?php echo $_SESSION['assure']['nom_ass']." ".$_SESSION['assure']['prenom_ass'] ; ?></caption>
                 <tr>
                     <th>Numéro</th>
                     <th>Date dépôt</th>
@@ -45,11 +46,9 @@ Maladie(*num_maladie,designation_maladie)
                     <th>lien malade</th>
                     <th>maladie</th>
                     <th>total de dossier</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
-                <?php foreach($dossiers as $dossier) { ?>
                     <tr class="table-primary" >
                         <td scope="row"> <?php echo $dossier['numdossier']; ?></td>
                         <td><?php echo $dossier['datedepot']; ?></td>
@@ -62,16 +61,31 @@ Maladie(*num_maladie,designation_maladie)
                             $sql->execute([$dossier['num_maladie']]);
                             $maladie_desg = $sql->fetchColumn(); ?>
                         <td><?php echo $maladie_desg; ?></td>
-
                         <td><?php echo $dossier['total_dossier']; ?>
-                        <td>
-                            <a href="supprimer_dossier.php?num_dos=<?php echo $dossier['numdossier'];?>" onclick = "return confirm('Voulez-vous supprimer le dossier !')" name="supprimer">Supprimer</a>
-                            <a href="modifier_dossier.php?num_dos=<?php echo $dossier['numdossier'];?>" name="modifier">Modifier</a>
-                            <a href="selectionner_dossier.php?num_dos=<?php echo $dossier['numdossier'];?>" name="selectionner">Sélectionner</a>
-
-                        </td>
                     </tr>
                 <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div
+        class="table-responsive-md" >
+        <table class="table table-striped-columns table-hover table-borderless table-primary align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>num rubrique</th>
+                    <th>nom rubrique</th>
+                    <th>montant rubrique</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <?php foreach($rubriques_dossier as $rubrique){ ?>
+                    <tr class="table-primary" >
+                        <td scope="row"> <?php echo $rubrique['num_rubrique']; ?></td>
+                        <td><?php echo $rubrique['nom_rubrique']; ?></td>
+                        <td><?php echo $rubrique['montant_rubrique']; ?></td>
+                    </tr>
+            <?php } } ?>
             </tbody>
         </table>
     </div>
