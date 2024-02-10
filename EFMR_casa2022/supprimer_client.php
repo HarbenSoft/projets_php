@@ -1,4 +1,4 @@
-<?php 
+<?php
     require 'db_loc_immobiliere.php'; // include si le fichier n'est pas requis et le script continuera a s'exécuter
  ?>
 <!DOCTYPE html>
@@ -10,7 +10,7 @@
 </head>
 <body>
     <?php
-    if ($_SERVER["REQUEST_METHOD"] = "GET"){
+    if ($_SERVER["REQUEST_METHOD"] == "GET"){
         $id_cli = htmlspecialchars($_REQUEST['id']);
     }
 
